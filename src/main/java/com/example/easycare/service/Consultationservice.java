@@ -1,39 +1,42 @@
 package com.example.easycare.service;
 
+import com.example.easycare.dto.ConsultationRequestDTO;
 import com.example.easycare.model.Consultation;
-import com.example.easycare.repository.Consultationrepository;
+import com.example.easycare.repository.ConsultationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
-public class Consultationservice {
+public class ConsultationserviceImpl implements Consultationservice {
 
     @Autowired
-    private Consultationrepository consultationRepo;
+    private ConsultationRepository consultationRepository;
 
-    public Consultation scheduleConsultation(Consultation c) {
-        c.setConsultationID(UUID.randomUUID().toString());
+    @Override
+    public Consultation scheduleConsultation(ConsultationRequestDTO dto) {
+        Consultation c = new Consultation();
+        c.setPatientId(dto.getPatientId());
+        c.setDoctorId(dto.getDoctorId());
+        c.setDateTime(dto.getDateTime());
         c.setStatus("Scheduled");
-        return consultationRepo.save(c);
+        return consultationRepository.save(c);
     }
 
+    @Override
     public String startConsultation(String id) {
-        Consultation c = consultationRepo.findById(id).orElse(null);
+        Consultation c = consultationRepository.findById(id).orElse(null);
         if (c == null) return "Consultation not found";
-
         c.setStatus("In Progress");
-        consultationRepo.save(c);
+        consultationRepository.save(c);
         return "Consultation started";
     }
 
+    @Override
     public String endConsultation(String id) {
-        Consultation c = consultationRepo.findById(id).orElse(null);
+        Consultation c = consultationRepository.findById(id).orElse(null);
         if (c == null) return "Consultation not found";
-
         c.setStatus("Completed");
-        consultationRepo.save(c);
+        consultationRepository.save(c);
         return "Consultation ended";
     }
 }
