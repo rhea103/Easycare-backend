@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cloud-Based Healthcare System</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+        body { background: #f5f7fa; color: #000; }
+        header { background: #0077cc; color: #000; padding: 20px; text-align: center; }
+        nav a { color: #000; margin: 0 15px; font-weight: 500; text-decoration: none; transition: 0.3s; }
+        nav a:hover { color: #005fa3; }
+        h1, h2, h3, p, .title, li { color: #000; }
+
+        /* Hero Section */
+        .hero { 
+            text-align: center; 
+            padding: 60px 20px; 
+            background: url('images/hero.jpg') center/cover no-repeat; 
+            color: #fff; 
+            border-radius: 0 0 20px 20px; 
+        }
+        .hero h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .hero p { font-size: 1.2rem; }
+
+        /* Forms */
+        .form-container { max-width: 400px; margin: 20px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .form-container input, .form-container textarea, .form-container button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; color: #000; }
+        .form-container button { background: #0077cc; color: white; border: none; cursor: pointer; transition: 0.3s; }
+        .form-container button:hover { background: #005fa3; }
+
+        /* Dashboard */
+        .dashboard { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; padding: 30px; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); width: 300px; transition: transform 0.3s, box-shadow 0.3s; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.2); }
+        .card img { width: 100%; border-radius: 15px; margin-bottom: 15px; }
+        .card ul { list-style: none; }
+        .card ul li { padding: 5px 0; display: flex; align-items: center; color: #000; }
+        .card ul li i { margin-right: 10px; color: #0077cc; }
+
+        /* Section Switching */
+        .page-section { display: none; padding: 30px 0; }
+        .active { display: block; }
+
+        /* Footer */
+        footer { text-align: center; padding: 20px; margin-top: 40px; background: #0077cc; color: #000; border-radius: 20px 20px 0 0; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Cloud-Based Healthcare System</h1>
+    <nav>
+        <a href="#" onclick="showSection('home')"><i class="ri-home-line"></i> Home</a>
+        <a href="#" onclick="showSection('patient-login')"><i class="ri-user-line"></i> Patient Login</a>
+        <a href="#" onclick="showSection('doctor-login')"><i class="ri-stethoscope-line"></i> Doctor Login</a>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="page-section active hero">
+    <h2>Smart. Secure. Cloud-Powered Healthcare.</h2>
+    <p>Access your medical records anytime, anywhere.</p>
+</section>
+
+<!-- Patient Login -->
+<section id="patient-login" class="page-section">
+    <h2 class="title"><i class="ri-user-line"></i> Patient Login</h2>
+    <div class="form-container">
+        <input type="email" id="patient-email" placeholder="Enter Email">
+        <input type="password" id="patient-password" placeholder="Enter Password">
+        <button onclick="loginPatient()"><i class="ri-login-box-line"></i> Login</button>
+        <p>New user? <a href="#" onclick="showSection('patient-register')">Register</a></p>
+    </div>
+</section>
+
+<!-- Patient Registration -->
+<section id="patient-register" class="page-section">
+    <h2 class="title"><i class="ri-user-add-line"></i> Patient Registration</h2>
+    <div class="form-container">
+        <input type="text" id="patient-name" placeholder="Full Name">
+        <input type="email" id="patient-email-reg" placeholder="Email">
+        <input type="password" id="patient-password-reg" placeholder="Password">
+        <button onclick="registerPatient()"><i class="ri-user-smile-line"></i> Register</button>
+    </div>
+</section>
+
+<!-- Patient Dashboard -->
+<section id="patient-dashboard" class="page-section">
+    <h2 class="title"><i class="ri-user-heart-line"></i> Patient Dashboard</h2>
+    <section class="dashboard">
+        <div class="card">
+            <img src="images/upload_report.jpg" alt="Upload Medical Report">
+            <h3><i class="ri-file-upload-line"></i> Upload Medical Report</h3>
+            <input type="file" id="reportFile">
+            <button><i class="ri-upload-cloud-line"></i> Upload</button>
+        </div>
+
+        <div class="card">
+            <img src="images/medical_records.jpg" alt="Medical Records">
+            <h3><i class="ri-folder-4-line"></i> Your Medical Records</h3>
+            <ul id="records">
+                <li><i class="ri-file-text-line"></i> Blood Report (Jan 2024)</li>
+                <li><i class="ri-file-text-line"></i> X-Ray Scan (Feb 2024)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <img src="images/book_appointment.jpg" alt="Book Appointment">
+            <h3><i class="ri-calendar-line"></i> Book Appointment</h3>
+            <input type="date">
+            <button><i class="ri-calendar-check-line"></i> Book</button>
+        </div>
+    </section>
+</section>
+
+<!-- Doctor Login -->
+<section id="doctor-login" class="page-section">
+    <h2 class="title"><i class="ri-stethoscope-line"></i> Doctor Login</h2>
+    <div class="form-container">
+        <input type="email" id="doctor-email" placeholder="Enter Email">
+        <input type="password" id="doctor-password" placeholder="Enter Password">
+        <button onclick="loginDoctor()"><i class="ri-login-box-line"></i> Login</button>
+    </div>
+</section>
+
+<!-- Doctor Dashboard -->
+<section id="doctor-dashboard" class="page-section">
+    <h2 class="title"><i class="ri-user-shared-line"></i> Doctor Dashboard</h2>
+    <section class="dashboard">
+        <div class="card">
+            <img src="images/patient_list.jpg" alt="Patient List">
+            <h3><i class="ri-list-check"></i> Patient List</h3>
+            <ul>
+                <li><i class="ri-user-line"></i> Riya Yadav</li>
+                <li><i class="ri-user-line"></i> Ram Neekhra</li>
+                <li><i class="ri-user-line"></i> Sumit Singh</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <img src="images/upload_prescription.jpg" alt="Upload Prescription">
+            <h3><i class="ri-pencil-line"></i> Upload Prescription</h3>
+            <input type="text" placeholder="Patient Name">
+            <textarea placeholder="Write prescription..."></textarea>
+            <button><i class="ri-save-line"></i> Save</button>
+        </div>
+    </section>
+</section>
+
+<footer>
+    &copy; 2025 Cloud-Based Healthcare System
+</footer>
+
+<script>
+    // Section Switching
+    function showSection(id) {
+        document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    // Patient Functions
+    function loginPatient() {
+        const email = document.getElementById('patient-email').value;
+        const password = document.getElementById('patient-password').value;
+
+        if(email && password) {
+            alert("Patient logged in successfully!");
+            showSection('patient-dashboard');
+        } else {
+            alert("Please enter valid email and password.");
+        }
+    }
+
+    function registerPatient() {
+        const name = document.getElementById('patient-name').value;
+        const email = document.getElementById('patient-email-reg').value;
+        const password = document.getElementById('patient-password-reg').value;
+
+        if(name && email && password) {
+            alert("Patient registered successfully!");
+            showSection('patient-login');
+        } else {
+            alert("Please fill all fields.");
+        }
+    }
+
+    // Doctor Functions
+    function loginDoctor() {
+        const email = document.getElementById('doctor-email').value;
+        const password = document.getElementById('doctor-password').value;
+
+        if(email && password) {
+            alert("Doctor logged in successfully!");
+            showSection('doctor-dashboard');
+        } else {
+            alert("Please enter valid email and password.");
+        }
+    }
+</script>
+
+</body>
+</html>
