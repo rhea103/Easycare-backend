@@ -11,23 +11,26 @@ import java.util.Date;
 @Service
 public class JwtService {
 
+    // Secret key used for signing the JWT
     @Value("${jwt.secret}")
     private String secret;
 
+    // JWT expiration time in milliseconds
     @Value("${jwt.expiration}")
     private long jwtExpirationMs;
 
-    // 1️⃣ Generate JWT token
-    public String generateToken(String userId) {
+    // Generate JWT token using user ID and role
+    public String generateToken(Long userId, String role) {
         return Jwts.builder()
-                .setSubject(userId)                // user ID or email
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .setSubject(String.valueOf(userId))  // store user ID as subject
+                .claim("role", role)                  // add user role as a claim
+                .setIssuedAt(new Date())              // current timestamp
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs)) // set expiration
+                .signWith(SignatureAlgorithm.HS512, secret) // sign token with HS512 algorithm
                 .compact();
     }
 
-    // 2️⃣ Validate JWT token
+    // Validate JWT token
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
@@ -37,12 +40,21 @@ public class JwtService {
         }
     }
 
-    // 3️⃣ Extract user ID from token
+    // Extract user ID from JWT token
     public String extractUserId(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
+    }
+
+    // Extract role from JWT token (optional utility method)
+    public String extractUserRole(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("role", String.class);
     }
 }

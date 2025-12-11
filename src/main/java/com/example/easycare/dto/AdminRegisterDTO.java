@@ -1,7 +1,7 @@
 
 package com.example.easycare.dto;
 
-public class AdminRegisterDTO {
+public class AdminRegisterDTO {   
     private String username;
     private String password;
 

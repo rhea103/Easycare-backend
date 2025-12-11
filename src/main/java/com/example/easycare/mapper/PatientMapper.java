@@ -3,10 +3,13 @@ package com.example.easycare.mapper;
 import com.example.easycare.dto.PatientRegisterDTO;
 import com.example.easycare.dto.PatientResponseDTO;
 import com.example.easycare.model.Patient;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class PatientMapper {
 
-    public static Patient toEntity(PatientRegisterDTO dto) {
+    // Converts a PatientRegisterDTO to a Patient entity
+    public Patient toEntity(PatientRegisterDTO dto) {
         Patient p = new Patient();
         p.setName(dto.getName());
         p.setEmail(dto.getEmail());
@@ -15,7 +18,8 @@ public class PatientMapper {
         return p;
     }
 
-    public static PatientResponseDTO toDTO(Patient p) {
+    // Converts a Patient entity to a PatientResponseDTO
+    public PatientResponseDTO toDTO(Patient p) {
         PatientResponseDTO dto = new PatientResponseDTO();
         dto.setId(p.getId());
         dto.setName(p.getName());

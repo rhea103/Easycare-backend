@@ -9,7 +9,8 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LogoutDTO {
-
+   
+    // Stores the user id  and cannot be empty
     @NotBlank(message = "User ID cannot be empty")
     private String userId;
 }

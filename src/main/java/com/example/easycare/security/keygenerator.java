@@ -4,18 +4,20 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 public class KeyGenerator {
+
     public static void main(String[] args) {
-        // Step 1: Create a secure random number generator
+
+        // Create a secure random number generator
         SecureRandom random = new SecureRandom();
 
-        // Step 2: Create a byte array of 64 bytes (512 bits)
+        // Generate 64 random bytes for the secret key
         byte[] bytes = new byte[64];
         random.nextBytes(bytes);
 
-        // Step 3: Encode the bytes to a Base64 string
+        // Encode the byte array into a Base64 string
         String secretKey = Base64.getEncoder().encodeToString(bytes);
 
-        // Step 4: Print the secret key
+        // Print the generated secret key
         System.out.println("Your JWT Secret Key:");
         System.out.println(secretKey);
     }

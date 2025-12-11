@@ -11,11 +11,12 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class LoginDTO {
 
+    // Stores the user's email, must be a valid email format and cannot be empty
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email cannot be empty")
     private String email;
 
+    // Stores the user's password and cannot be empty
     @NotBlank(message = "Password cannot be empty")
     private String password;
 }
-

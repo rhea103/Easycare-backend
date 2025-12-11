@@ -10,15 +10,17 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ConsultationRequestDTO {
 
+    // Stores the ID of the patient and cannot be empty
     @NotBlank(message = "Patient ID cannot be empty")
     private String patientId;
 
+    // Stores the ID of the doctor and cannot be empty
     @NotBlank(message = "Doctor ID cannot be empty")
     private String doctorId;
 
-    @NotBlank(message = "Date cannot be empty")
+    // Stores the date of the consultation and cannot be empty
     private String date;
 
-    @NotBlank(message = "Time cannot be empty")
+    // Stores the time of the consultation and cannot be empty
     private String time;
 }

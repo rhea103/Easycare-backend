@@ -1,7 +1,14 @@
 package com.example.easycare.service;
 
-public interface Adminservice {
+// Service interface for Admin-related operations
+public interface AdminService {
+
+    // Method to manage users (e.g., create, update, delete)
     String manageUsers();
+
+    // Method to ensure system security
     String ensureSecurity();
+
+    // Method to backup system data
     String backupData();
 }

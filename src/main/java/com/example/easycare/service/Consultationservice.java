@@ -7,21 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ConsultationserviceImpl implements Consultationservice {
+// Implementation of the ConsultationService interface
+public class ConsultationServiceImpl implements ConsultationService {
 
     @Autowired
     private ConsultationRepository consultationRepository;
 
+    // Schedule a new consultation using the request DTO
     @Override
     public Consultation scheduleConsultation(ConsultationRequestDTO dto) {
         Consultation c = new Consultation();
         c.setPatientId(dto.getPatientId());
         c.setDoctorId(dto.getDoctorId());
-        c.setDateTime(dto.getDateTime());
-        c.setStatus("Scheduled");
+        c.setDateTime(dto.getDateTime()); // Assumes Consultation has a dateTime field
+        c.setStatus("Scheduled");          // Default status when scheduling
         return consultationRepository.save(c);
     }
 
+    // Start an existing consultation by updating its status
     @Override
     public String startConsultation(String id) {
         Consultation c = consultationRepository.findById(id).orElse(null);
@@ -31,6 +34,7 @@ public class ConsultationserviceImpl implements Consultationservice {
         return "Consultation started";
     }
 
+    // End an existing consultation by updating its status
     @Override
     public String endConsultation(String id) {
         Consultation c = consultationRepository.findById(id).orElse(null);

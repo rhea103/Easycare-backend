@@ -1,20 +1,26 @@
 package com.example.easycare.model;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import java.util.Date;
-import lombok.*;
+import lombok.Data;
+
 @Data
 @Entity
 @Table(name = "consultations")
 public class Consultation {
 
+    // Primary key for the Consultation entity
     @Id
     private String consultationID;
 
+    // Stores the date of the consultation
     private Date date;
-    private String mode;   // online/offline
+
+    // Stores the mode of the consultation: online or offline
+    private String mode;
+
+    // Stores the current status of the consultation (e.g., PENDING, COMPLETED)
     private String status;
 }
